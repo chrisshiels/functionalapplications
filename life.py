@@ -121,5 +121,5 @@ if __name__ == "__main__":
 
 
 # To do:
-# - argv lenx, leny, initial.
-# - stringtogrid().
+# - Process pattern name, lenx and leny from command line arguments.
+# - Recode glider() and pentadecathlon() in string form with patterntogrid().
