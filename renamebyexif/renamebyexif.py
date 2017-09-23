@@ -31,7 +31,7 @@ def main(stdin, stdout, stderr, argv):
     arg1 = reduce(lambda a, e: e(a),
                   [ loadexif, exifdatetime, parsedatetime, filedatetime ],
                   arg)
-    print >> stdout, 'mv -n {arg} {arg1}'.format(**{ 'arg': arg, 'arg1': arg1 })
+    print >> stdout, 'mv -n {arg} {arg1}'.format(arg = arg, arg1 = arg1)
   return 0
 
 
