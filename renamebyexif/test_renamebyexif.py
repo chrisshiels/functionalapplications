@@ -37,9 +37,23 @@ def test_filedatetime():
   assert filedatetime == '19700101000000.jpg'
 
 
-def test_main():
+def test_main1():
   stdout = StringIO.StringIO()
-  ret = renamebyexif.main(None, stdout, None, [ 'test.jpg' ])
+  stderr = StringIO.StringIO()
+  ret = renamebyexif.main(None, stdout, stderr, [])
   assert ret == 0
-  assert stdout.getvalue() == "mv -n test.jpg 19700101000000.jpg\n"
+  assert stdout.getvalue() == ''
+  assert stderr.getvalue() == 'Usage:  renamebyexif file.jpg ...\n'
   stdout.close()
+  stderr.close()
+
+
+def test_main2():
+  stdout = StringIO.StringIO()
+  stderr = StringIO.StringIO()
+  ret = renamebyexif.main(None, stdout, stderr, [ 'test.jpg' ])
+  assert ret == 0
+  assert stdout.getvalue() == 'mv -n test.jpg 19700101000000.jpg\n'
+  assert stderr.getvalue() == ''
+  stdout.close()
+  stderr.close()

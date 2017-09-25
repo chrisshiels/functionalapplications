@@ -26,13 +26,25 @@ def filedatetime(dt):
   return dt.strftime('%Y%m%d%H%M%S.jpg')
 
 
-def main(stdin, stdout, stderr, argv):
+def usage(stdin, stdout, stderr):
+  print >> stderr, 'Usage:  renamebyexif file.jpg ...'
+  return 0
+
+
+def renamebyexif(stdin, stdout, stderr, argv):
   for arg in argv:
     arg1 = reduce(lambda a, e: e(a),
                   [ loadexif, exifdatetime, parsedatetime, filedatetime ],
                   arg)
     print >> stdout, 'mv -n {arg} {arg1}'.format(arg = arg, arg1 = arg1)
   return 0
+
+
+def main(stdin, stdout, stderr, argv):
+  if argv == []:
+    return usage(stdin, stdout, stderr)
+  else:
+    return renamebyexif(stdin, stdout, stderr, argv)
 
 
 if __name__ == "__main__":
