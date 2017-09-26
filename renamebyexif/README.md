@@ -17,7 +17,7 @@ host$ . virtualenv/bin/activate
 platform linux2 -- Python 2.7.13, pytest-3.2.2, py-1.4.34, pluggy-0.4.0 -- /home/chris/chris/functionalapplications/renamebyexif/virtualenv/bin/python2
 cachedir: .cache
 rootdir: /home/chris/chris/functionalapplications/renamebyexif, inifile:
-collected 5 items                                                               
+collected 5 items
 
 test_renamebyexif.py::test_loadexif PASSED
 test_renamebyexif.py::test_exifdatetime PASSED
