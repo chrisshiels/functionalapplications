@@ -40,6 +40,10 @@ describe('ipcalc', function() {
                           [ 16909060, 8 ]);
     });
 
+    // Note:
+    // - In JavaScript bitwise operations operate on signed 32-bit values.
+    // - These are represented using two's-compliment for negative numbers.
+    // - So 255.255.255.255 = 2^32-1 = -1.
     it('returns [ -1,32 ] for cidrtowordmask("255.255.255.255/32")',
        function() {
          assert.deepEqual(ipcalc.cidrtowordmask('255.255.255.255/32'),

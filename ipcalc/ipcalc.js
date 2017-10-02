@@ -28,6 +28,10 @@ const cidrtowordmask = function(s) {
 
 const wordmasktocidr = function(word, mask) {
   let octets = [
+    // Note:
+    // - In JavaScript bitwise operations operate on signed 32-bit values.
+    // - These are represented using two's-compliment for negative numbers.
+    // - So 255.255.255.255 = 2^32-1 = -1 and we use '>>>' to handle this.
     (word >>> 24) & 255,
     (word >> 16) & 255,
     (word >> 8) & 255,
