@@ -28,7 +28,7 @@ const cidrtowordmask = function(s) {
 
 const wordmasktocidr = function(word, mask) {
   let octets = [
-    (word >> 24) & 255,
+    (word >>> 24) & 255,
     (word >> 16) & 255,
     (word >> 8) & 255,
     word & 255
