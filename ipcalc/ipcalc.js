@@ -70,18 +70,9 @@ const subnets = function(word, mask, newmask) {
 
 
 const ipcalc = function(stdin, stdout, stderr, argv) {
-  stdout.write(cidrtowordmask('1.2.3.192/24') + '\n');
-  stdout.write(wordmasktocidr(
-	         ...cidrtowordmask('1.2.3.192/24')) + '\n');
-  stdout.write(wordmasktocidr(
-	         ...networkaddress(
-	           ...cidrtowordmask('1.2.3.192/24'))) + '\n');
   stdout.write(wordmasktocidr(
 	         ...broadcastaddress(
 	           ...cidrtowordmask('1.2.3.192/24'))) + '\n');
-  stdout.write(wordmasktocidr(
-	         ...networkaddress(
-	           ...cidrtowordmask('1.2.3.1/26'))) + '\n');
   stdout.write(wordmasktocidr(
 	         ...broadcastaddress(
 	           ...cidrtowordmask('1.2.3.1/26'))) + '\n');
@@ -112,5 +103,6 @@ const ipcalc = function(stdin, stdout, stderr, argv) {
 module.exports = {
   'range':          range,
   'cidrtowordmask': cidrtowordmask,
-  'wordmasktocidr': wordmasktocidr
+  'wordmasktocidr': wordmasktocidr,
+  'networkaddress': networkaddress
 };

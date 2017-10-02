@@ -74,4 +74,39 @@ describe('ipcalc', function() {
                           "255.255.255.255/32");
     });
   });
+
+
+  describe('#networkaddress()', function() {
+    it('returns "0.0.0.0/0" for wordmasktocidr(...networkaddress(...cidrtowordmask("0.0.0.0/0")))',
+       function() {
+         assert.deepEqual(ipcalc.wordmasktocidr(
+		            ...ipcalc.networkaddress(
+		              ...ipcalc.cidrtowordmask("0.0.0.0/0"))),
+                          "0.0.0.0/0");
+    });
+
+    it('returns "192.192.0.0/16" for wordmasktocidr(...networkaddress(...cidrtowordmask("192.192.192.192/16")))',
+       function() {
+         assert.deepEqual(ipcalc.wordmasktocidr(
+		            ...ipcalc.networkaddress(
+		              ...ipcalc.cidrtowordmask("192.192.192.192/16"))),
+                          "192.192.0.0/16");
+    });
+
+    it('returns "192.192.192.0/18" for wordmasktocidr(...networkaddress(...cidrtowordmask("192.192.192.192/18")))',
+       function() {
+         assert.deepEqual(ipcalc.wordmasktocidr(
+		            ...ipcalc.networkaddress(
+		              ...ipcalc.cidrtowordmask("192.192.192.192/18"))),
+                          "192.192.192.0/18");
+    });
+
+    it('returns "255.255.255.255/32" for wordmasktocidr(...networkaddress(...cidrtowordmask("255.255.255.255/32")))',
+       function() {
+         assert.deepEqual(ipcalc.wordmasktocidr(
+		            ...ipcalc.networkaddress(
+		              ...ipcalc.cidrtowordmask("255.255.255.255/32"))),
+                          "255.255.255.255/32");
+    });
+  });
 });
