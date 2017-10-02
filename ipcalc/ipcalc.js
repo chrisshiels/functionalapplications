@@ -99,7 +99,14 @@ const ipcalc = function(stdin, stdout, stderr, argv) {
 }
 
 
-process.exitCode = ipcalc(process.stdin,
-                          process.stdout,
-                          process.stderr,
-                          process.argv.slice(1));
+//process.exitCode = ipcalc(process.stdin,
+//                          process.stdout,
+//                          process.stderr,
+//                          process.argv.slice(1));
+
+
+module.exports = {
+  'range':          range,
+  'cidrtowordmask': cidrtowordmask,
+  'wordmasktocidr': wordmasktocidr
+};
