@@ -180,4 +180,40 @@ describe('ipcalc', function() {
                           "0.0.0.0/32");
     });
   });
+
+
+  describe('#lasthostaddress()', function() {
+    // Note this is an error.
+    it('returns "255.255.255.254/0" for wordmasktocidr(...lasthostaddress(...cidrtowordmask("0.0.0.0/0")))',
+       function() {
+         assert.deepEqual(ipcalc.wordmasktocidr(
+		            ...ipcalc.lasthostaddress(
+		              ...ipcalc.cidrtowordmask("0.0.0.0/0"))),
+                          "255.255.255.254/0");
+    });
+
+    it('returns "192.192.255.254/16" for wordmasktocidr(...lasthostaddress(...cidrtowordmask("192.192.192.192/16")))',
+       function() {
+         assert.deepEqual(ipcalc.wordmasktocidr(
+		            ...ipcalc.lasthostaddress(
+		              ...ipcalc.cidrtowordmask("192.192.192.192/16"))),
+                          "192.192.255.254/16");
+    });
+
+    it('returns "192.192.255.254/18" for wordmasktocidr(...lasthostaddress(...cidrtowordmask("192.192.192.192/18")))',
+       function() {
+         assert.deepEqual(ipcalc.wordmasktocidr(
+		            ...ipcalc.lasthostaddress(
+		              ...ipcalc.cidrtowordmask("192.192.192.192/18"))),
+                          "192.192.255.254/18");
+    });
+
+    it('returns "255.255.255.254/32" for wordmasktocidr(...lasthostaddress(...cidrtowordmask("255.255.255.255/32")))',
+       function() {
+         assert.deepEqual(ipcalc.wordmasktocidr(
+		            ...ipcalc.lasthostaddress(
+		              ...ipcalc.cidrtowordmask("255.255.255.255/32"))),
+                          "255.255.255.254/32");
+    });
+  });
 });

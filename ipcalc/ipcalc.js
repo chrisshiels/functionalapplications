@@ -70,9 +70,6 @@ const subnets = function(word, mask, newmask) {
 
 
 const ipcalc = function(stdin, stdout, stderr, argv) {
-  stdout.write(wordmasktocidr(
-	         ...lasthostaddress(
-	           ...cidrtowordmask('1.2.3.1/26'))) + '\n');
   console.log(subnets(...cidrtowordmask('1.2.3.1/24'),
 	              25).map((e) => wordmasktocidr(...e)));
   console.log(subnets(...cidrtowordmask('1.2.3.1/24'),
@@ -97,5 +94,6 @@ module.exports = {
   'wordmasktocidr':   wordmasktocidr,
   'networkaddress':   networkaddress,
   'broadcastaddress': broadcastaddress,
-  'firsthostaddress': firsthostaddress
+  'firsthostaddress': firsthostaddress,
+  'lasthostaddress':  lasthostaddress
 };
