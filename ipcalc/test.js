@@ -216,4 +216,77 @@ describe('ipcalc', function() {
                           "255.255.255.254/32");
     });
   });
+
+
+  describe('#subnets()', function() {
+    it('returns correct subnets for subnets(...cidrtowordmask("1.2.3.4/24"), 25).map((e) => wordmasktocidr(...e))',
+       function() {
+         assert.deepEqual(
+           ipcalc.subnets(...ipcalc.cidrtowordmask('1.2.3.4/24'),
+                            25).map((e) => ipcalc.wordmasktocidr(...e)),
+           [
+             '1.2.3.0/25',
+             '1.2.3.128/25'
+	   ]
+	 );
+    });
+
+    it('returns correct subnets for subnets(...cidrtowordmask("1.2.3.4/24"), 26).map((e) => wordmasktocidr(...e))',
+       function() {
+         assert.deepEqual(
+           ipcalc.subnets(...ipcalc.cidrtowordmask('1.2.3.4/24'),
+                            26).map((e) => ipcalc.wordmasktocidr(...e)),
+           [
+             '1.2.3.0/26',
+             '1.2.3.64/26',
+             '1.2.3.128/26',
+             '1.2.3.192/26'
+	   ]
+	 );
+    });
+
+    it('returns correct subnets for subnets(...cidrtowordmask("1.2.3.4/24"), 27).map((e) => wordmasktocidr(...e))',
+       function() {
+         assert.deepEqual(
+           ipcalc.subnets(...ipcalc.cidrtowordmask('1.2.3.4/24'),
+                            27).map((e) => ipcalc.wordmasktocidr(...e)),
+           [
+             '1.2.3.0/27',
+             '1.2.3.32/27',
+             '1.2.3.64/27',
+             '1.2.3.96/27',
+             '1.2.3.128/27',
+             '1.2.3.160/27',
+             '1.2.3.192/27',
+             '1.2.3.224/27'
+	   ]
+	 );
+    });
+
+    it('returns correct subnets for subnets(...cidrtowordmask("1.2.3.4/24"), 28).map((e) => wordmasktocidr(...e))',
+       function() {
+         assert.deepEqual(
+           ipcalc.subnets(...ipcalc.cidrtowordmask('1.2.3.4/24'),
+                            28).map((e) => ipcalc.wordmasktocidr(...e)),
+           [
+             '1.2.3.0/28',
+             '1.2.3.16/28',
+             '1.2.3.32/28',
+             '1.2.3.48/28',
+             '1.2.3.64/28',
+             '1.2.3.80/28',
+             '1.2.3.96/28',
+             '1.2.3.112/28',
+             '1.2.3.128/28',
+             '1.2.3.144/28',
+             '1.2.3.160/28',
+             '1.2.3.176/28',
+             '1.2.3.192/28',
+             '1.2.3.208/28',
+             '1.2.3.224/28',
+             '1.2.3.240/28'
+	   ]
+	 );
+    });
+  });
 });
