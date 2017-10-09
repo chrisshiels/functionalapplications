@@ -64,8 +64,8 @@ const lasthostaddress = function(word, mask) {
 const subnets = function(word, mask, newmask) {
   let step = Math.pow(2, 32 - newmask);
   return range(networkaddress(word, mask)[0],
-	       broadcastaddress(word, mask)[0] + 1,
-	       step).map((e) => { return [ e, newmask ]; });
+               broadcastaddress(word, mask)[0] + 1,
+               step).map((e) => { return [ e, newmask ]; });
 }
 
 
