@@ -289,4 +289,26 @@ describe('ipcalc', function() {
 	 );
     });
   });
+
+
+  describe('#padright()', function() {
+    it('returns "          " for padright("", 10, " ")',
+       function() {
+         assert.equal(ipcalc.padright('', 10, ' '),
+                      '          ');
+    });
+
+    it('returns "abcde     " for padright("abcde", 10, " ")',
+       function() {
+         assert.equal(ipcalc.padright('abcde', 10, ' '),
+                      'abcde     ');
+    });
+
+    it('returns "abcdeabcde" for padright(s, 10, " ")',
+       function() {
+         let s = 'abcdeabcde';
+         assert.equal(ipcalc.padright(s, 10, ' '),
+                      s);
+    });
+  });
 });

@@ -124,5 +124,6 @@ else
     'broadcastaddress': broadcastaddress,
     'firsthostaddress': firsthostaddress,
     'lasthostaddress':  lasthostaddress,
-    'subnets':          subnets
+    'subnets':          subnets,
+    'padright':         padright
   };
