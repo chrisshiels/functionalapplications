@@ -69,24 +69,60 @@ const subnets = function(word, mask, newmask) {
 }
 
 
-//const ipcalc = function(stdin, stdout, stderr, argv) {
-//  return 0;
-//}
-//
-//
-//process.exitCode = ipcalc(process.stdin,
-//                          process.stdout,
-//                          process.stderr,
-//                          process.argv.slice(1));
+const padright = function(s, len, c = ' ') {
+  if (s.length >= len)
+    return s;
+  else
+    return padright(s + c, len, c);
+}
 
 
-module.exports = {
-  'range':            range,
-  'cidrtowordmask':   cidrtowordmask,
-  'wordmasktocidr':   wordmasktocidr,
-  'networkaddress':   networkaddress,
-  'broadcastaddress': broadcastaddress,
-  'firsthostaddress': firsthostaddress,
-  'lasthostaddress':  lasthostaddress,
-  'subnets':          subnets
-};
+const outputaddressdetailsheader = function(stdout) {
+  console.log(`${padright('network', 18)}  ` +
+              `${padright('broadcast', 18)}  ` +
+              `${padright('first', 18)}  ` +
+              `${padright('last', 18)}`);
+}
+
+
+const outputaddressdetails = function(stdout, word, mask) {
+  let network = padright(wordmasktocidr(...networkaddress(word, mask)), 18);
+  let broadcast = padright(wordmasktocidr(...broadcastaddress(word, mask)), 18);
+  let first = padright(wordmasktocidr(...firsthostaddress(word, mask)), 18);
+  let last = padright(wordmasktocidr(...lasthostaddress(word, mask)), 18);
+  console.log(`${network}  ${broadcast}  ${first}  ${last}`);
+}
+
+
+const main = function(stdin, stdout, stderr, argv) {
+  if (argv.length == 2) {
+    let address = cidrtowordmask(argv[1]);
+    outputaddressdetailsheader(stdout);
+    outputaddressdetails(stdout, ...address);
+  } else if (argv.length == 3) {
+    let address = cidrtowordmask(argv[1]);
+    let newmask = parseInt(argv[2], 10);
+    outputaddressdetailsheader(stdout);
+    for (let subnet of subnets(...address, newmask))
+      outputaddressdetails(stdout, ...subnet);
+  }
+  return 0;
+}
+
+
+if (!module.parent)
+  process.exitCode = main(process.stdin,
+                          process.stdout,
+                          process.stderr,
+                          process.argv.slice(1));
+else
+  module.exports = {
+    'range':            range,
+    'cidrtowordmask':   cidrtowordmask,
+    'wordmasktocidr':   wordmasktocidr,
+    'networkaddress':   networkaddress,
+    'broadcastaddress': broadcastaddress,
+    'firsthostaddress': firsthostaddress,
+    'lasthostaddress':  lasthostaddress,
+    'subnets':          subnets
+  };
