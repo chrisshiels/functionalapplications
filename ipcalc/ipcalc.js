@@ -7,6 +7,9 @@
 'use strict';
 
 
+const util = require('util');
+
+
 const range = function(start, end, step = 1) {
   if (start >= end)
     return [];
@@ -78,20 +81,25 @@ const padright = function(s, len, c = ' ') {
 
 
 const outputaddressdetailsheader = function(stdout) {
-  stdout.write(`${padright('network', 18)}  ` +
-               `${padright('broadcast', 18)}  ` +
-               `${padright('first', 18)}  ` +
-               `${padright('last', 18)}\n`);
+  stdout.write(util.format('%s  %s  %s  %s\n',
+                           padright('network', 18),
+                           padright('broadcast', 18),
+                           padright('first', 18),
+                           padright('last', 18)));
   return 0;
 }
 
 
 const outputaddressdetails = function(stdout, word, mask) {
-  let network = padright(wordmasktocidr(...networkaddress(word, mask)), 18);
-  let broadcast = padright(wordmasktocidr(...broadcastaddress(word, mask)), 18);
-  let first = padright(wordmasktocidr(...firsthostaddress(word, mask)), 18);
-  let last = padright(wordmasktocidr(...lasthostaddress(word, mask)), 18);
-  stdout.write(`${network}  ${broadcast}  ${first}  ${last}\n`);
+  let network = wordmasktocidr(...networkaddress(word, mask));
+  let broadcast = wordmasktocidr(...broadcastaddress(word, mask));
+  let first = wordmasktocidr(...firsthostaddress(word, mask));
+  let last = wordmasktocidr(...lasthostaddress(word, mask));
+  stdout.write(util.format('%s  %s  %s  %s\n',
+                           padright(network, 18),
+                           padright(broadcast, 18),
+                           padright(first, 18),
+                           padright(last, 18)));
   return 0;
 }
 
