@@ -112,14 +112,14 @@ const outputusage = function(stdout) {
 
 const main = function(stdin, stdout, stderr, argv) {
   if (argv.length == 2) {
-    let address = cidrtowordmask(argv[1]);
+    let wordmask = cidrtowordmask(argv[1]);
     outputnetworkdetailsheader(stdout);
-    outputnetworkdetails(stdout, ...address);
+    outputnetworkdetails(stdout, ...wordmask);
   } else if (argv.length == 3) {
-    let address = cidrtowordmask(argv[1]);
+    let wordmask = cidrtowordmask(argv[1]);
     let newmask = parseInt(argv[2], 10);
     outputnetworkdetailsheader(stdout);
-    for (let subnet of subnets(...address, newmask))
+    for (let subnet of subnets(...wordmask, newmask))
       outputnetworkdetails(stdout, ...subnet);
   } else
     outputusage(stdout);
