@@ -57,21 +57,21 @@ describe('ipcalc', function() {
     it('returns "0.0.0.0/0" for wordmasktocidr(...cidrtowordmask("0.0.0.0/0"))',
        function() {
          assert.equal(ipcalc.wordmasktocidr(
-		        ...ipcalc.cidrtowordmask("0.0.0.0/0")),
+                        ...ipcalc.cidrtowordmask("0.0.0.0/0")),
                       "0.0.0.0/0");
     });
 
     it('returns "1.2.3.4/8" for wordmasktocidr(...cidrtowordmask("1.2.3.4/8"))',
        function() {
          assert.equal(ipcalc.wordmasktocidr(
-		        ...ipcalc.cidrtowordmask("1.2.3.4/8")),
+                        ...ipcalc.cidrtowordmask("1.2.3.4/8")),
                       "1.2.3.4/8");
     });
 
     it('returns "255.255.255.255/32" for wordmasktocidr(...cidrtowordmask("255.255.255.255/32"))',
        function() {
          assert.equal(ipcalc.wordmasktocidr(
-		        ...ipcalc.cidrtowordmask("255.255.255.255/32")),
+                        ...ipcalc.cidrtowordmask("255.255.255.255/32")),
                       "255.255.255.255/32");
     });
   });
@@ -81,32 +81,32 @@ describe('ipcalc', function() {
     it('returns "0.0.0.0/0" for wordmasktocidr(...networkaddress(...cidrtowordmask("0.0.0.0/0")))',
        function() {
          assert.equal(ipcalc.wordmasktocidr(
-		        ...ipcalc.networkaddress(
-		          ...ipcalc.cidrtowordmask("0.0.0.0/0"))),
+                        ...ipcalc.networkaddress(
+                          ...ipcalc.cidrtowordmask("0.0.0.0/0"))),
                       "0.0.0.0/0");
     });
 
     it('returns "192.192.0.0/16" for wordmasktocidr(...networkaddress(...cidrtowordmask("192.192.192.192/16")))',
        function() {
          assert.equal(ipcalc.wordmasktocidr(
-		        ...ipcalc.networkaddress(
-		          ...ipcalc.cidrtowordmask("192.192.192.192/16"))),
+                        ...ipcalc.networkaddress(
+                          ...ipcalc.cidrtowordmask("192.192.192.192/16"))),
                       "192.192.0.0/16");
     });
 
     it('returns "192.192.192.0/18" for wordmasktocidr(...networkaddress(...cidrtowordmask("192.192.192.192/18")))',
        function() {
          assert.equal(ipcalc.wordmasktocidr(
-		        ...ipcalc.networkaddress(
-		          ...ipcalc.cidrtowordmask("192.192.192.192/18"))),
+                        ...ipcalc.networkaddress(
+                          ...ipcalc.cidrtowordmask("192.192.192.192/18"))),
                       "192.192.192.0/18");
     });
 
     it('returns "255.255.255.255/32" for wordmasktocidr(...networkaddress(...cidrtowordmask("255.255.255.255/32")))',
        function() {
          assert.equal(ipcalc.wordmasktocidr(
-		        ...ipcalc.networkaddress(
-		          ...ipcalc.cidrtowordmask("255.255.255.255/32"))),
+                        ...ipcalc.networkaddress(
+                          ...ipcalc.cidrtowordmask("255.255.255.255/32"))),
                       "255.255.255.255/32");
     });
   });
@@ -116,32 +116,32 @@ describe('ipcalc', function() {
     it('returns "255.255.255.255/0" for wordmasktocidr(...broadcastaddress(...cidrtowordmask("0.0.0.0/0")))',
        function() {
          assert.equal(ipcalc.wordmasktocidr(
-		        ...ipcalc.broadcastaddress(
-		          ...ipcalc.cidrtowordmask("0.0.0.0/0"))),
+                        ...ipcalc.broadcastaddress(
+                          ...ipcalc.cidrtowordmask("0.0.0.0/0"))),
                       "255.255.255.255/0");
     });
 
     it('returns "192.192.255.255/16" for wordmasktocidr(...broadcastaddress(...cidrtowordmask("192.192.192.192/16")))',
        function() {
          assert.equal(ipcalc.wordmasktocidr(
-		        ...ipcalc.broadcastaddress(
-		          ...ipcalc.cidrtowordmask("192.192.192.192/16"))),
+                        ...ipcalc.broadcastaddress(
+                          ...ipcalc.cidrtowordmask("192.192.192.192/16"))),
                       "192.192.255.255/16");
     });
 
     it('returns "192.192.255.255/18" for wordmasktocidr(...broadcastaddress(...cidrtowordmask("192.192.192.192/18")))',
        function() {
          assert.equal(ipcalc.wordmasktocidr(
-		        ...ipcalc.broadcastaddress(
-		          ...ipcalc.cidrtowordmask("192.192.192.192/18"))),
+                        ...ipcalc.broadcastaddress(
+                          ...ipcalc.cidrtowordmask("192.192.192.192/18"))),
                       "192.192.255.255/18");
     });
 
     it('returns "255.255.255.255/32" for wordmasktocidr(...broadcastaddress(...cidrtowordmask("255.255.255.255/32")))',
        function() {
          assert.equal(ipcalc.wordmasktocidr(
-		        ...ipcalc.broadcastaddress(
-		          ...ipcalc.cidrtowordmask("255.255.255.255/32"))),
+                        ...ipcalc.broadcastaddress(
+                          ...ipcalc.cidrtowordmask("255.255.255.255/32"))),
                       "255.255.255.255/32");
     });
   });
@@ -151,24 +151,24 @@ describe('ipcalc', function() {
     it('returns "0.0.0.1/0" for wordmasktocidr(...firsthostaddress(...cidrtowordmask("0.0.0.0/0")))',
        function() {
          assert.equal(ipcalc.wordmasktocidr(
-		        ...ipcalc.firsthostaddress(
-		          ...ipcalc.cidrtowordmask("0.0.0.0/0"))),
+                        ...ipcalc.firsthostaddress(
+                          ...ipcalc.cidrtowordmask("0.0.0.0/0"))),
                       "0.0.0.1/0");
     });
 
     it('returns "192.192.0.1/16" for wordmasktocidr(...firsthostaddress(...cidrtowordmask("192.192.192.192/16")))',
        function() {
          assert.equal(ipcalc.wordmasktocidr(
-		        ...ipcalc.firsthostaddress(
-		          ...ipcalc.cidrtowordmask("192.192.192.192/16"))),
+                        ...ipcalc.firsthostaddress(
+                          ...ipcalc.cidrtowordmask("192.192.192.192/16"))),
                       "192.192.0.1/16");
     });
 
     it('returns "192.192.192.1/18" for wordmasktocidr(...firsthostaddress(...cidrtowordmask("192.192.192.192/18")))',
        function() {
          assert.equal(ipcalc.wordmasktocidr(
-		        ...ipcalc.firsthostaddress(
-		          ...ipcalc.cidrtowordmask("192.192.192.192/18"))),
+                      ...ipcalc.firsthostaddress(
+                        ...ipcalc.cidrtowordmask("192.192.192.192/18"))),
                       "192.192.192.1/18");
     });
 
@@ -176,8 +176,8 @@ describe('ipcalc', function() {
     it('returns "0.0.0.0/32" for wordmasktocidr(...firsthostaddress(...cidrtowordmask("255.255.255.255/32")))',
        function() {
          assert.equal(ipcalc.wordmasktocidr(
-		        ...ipcalc.firsthostaddress(
-		          ...ipcalc.cidrtowordmask("255.255.255.255/32"))),
+                        ...ipcalc.firsthostaddress(
+                          ...ipcalc.cidrtowordmask("255.255.255.255/32"))),
                       "0.0.0.0/32");
     });
   });
@@ -188,32 +188,32 @@ describe('ipcalc', function() {
     it('returns "255.255.255.254/0" for wordmasktocidr(...lasthostaddress(...cidrtowordmask("0.0.0.0/0")))',
        function() {
          assert.equal(ipcalc.wordmasktocidr(
-		        ...ipcalc.lasthostaddress(
-		          ...ipcalc.cidrtowordmask("0.0.0.0/0"))),
+                        ...ipcalc.lasthostaddress(
+                          ...ipcalc.cidrtowordmask("0.0.0.0/0"))),
                       "255.255.255.254/0");
     });
 
     it('returns "192.192.255.254/16" for wordmasktocidr(...lasthostaddress(...cidrtowordmask("192.192.192.192/16")))',
        function() {
          assert.equal(ipcalc.wordmasktocidr(
-		        ...ipcalc.lasthostaddress(
-		          ...ipcalc.cidrtowordmask("192.192.192.192/16"))),
+                        ...ipcalc.lasthostaddress(
+                          ...ipcalc.cidrtowordmask("192.192.192.192/16"))),
                       "192.192.255.254/16");
     });
 
     it('returns "192.192.255.254/18" for wordmasktocidr(...lasthostaddress(...cidrtowordmask("192.192.192.192/18")))',
        function() {
          assert.equal(ipcalc.wordmasktocidr(
-		        ...ipcalc.lasthostaddress(
-		          ...ipcalc.cidrtowordmask("192.192.192.192/18"))),
+                        ...ipcalc.lasthostaddress(
+                          ...ipcalc.cidrtowordmask("192.192.192.192/18"))),
                       "192.192.255.254/18");
     });
 
     it('returns "255.255.255.254/32" for wordmasktocidr(...lasthostaddress(...cidrtowordmask("255.255.255.255/32")))',
        function() {
          assert.equal(ipcalc.wordmasktocidr(
-		        ...ipcalc.lasthostaddress(
-		          ...ipcalc.cidrtowordmask("255.255.255.255/32"))),
+                        ...ipcalc.lasthostaddress(
+                          ...ipcalc.cidrtowordmask("255.255.255.255/32"))),
                       "255.255.255.254/32");
     });
   });
@@ -228,8 +228,8 @@ describe('ipcalc', function() {
            [
              '1.2.3.0/25',
              '1.2.3.128/25'
-	   ]
-	 );
+           ]
+         );
     });
 
     it('returns correct subnets for subnets(...cidrtowordmask("1.2.3.4/24"), 26).map((e) => wordmasktocidr(...e))',
@@ -242,8 +242,8 @@ describe('ipcalc', function() {
              '1.2.3.64/26',
              '1.2.3.128/26',
              '1.2.3.192/26'
-	   ]
-	 );
+           ]
+         );
     });
 
     it('returns correct subnets for subnets(...cidrtowordmask("1.2.3.4/24"), 27).map((e) => wordmasktocidr(...e))',
@@ -260,8 +260,8 @@ describe('ipcalc', function() {
              '1.2.3.160/27',
              '1.2.3.192/27',
              '1.2.3.224/27'
-	   ]
-	 );
+           ]
+         );
     });
 
     it('returns correct subnets for subnets(...cidrtowordmask("1.2.3.4/24"), 28).map((e) => wordmasktocidr(...e))',
@@ -286,8 +286,8 @@ describe('ipcalc', function() {
              '1.2.3.208/28',
              '1.2.3.224/28',
              '1.2.3.240/28'
-	   ]
-	 );
+           ]
+         );
     });
   });
 
@@ -319,10 +319,10 @@ describe('ipcalc', function() {
        function() {
          let stdout = stringwritable.stringwritable();
          assert.equal(ipcalc.main(null, stdout, null,
-		                  [ 'ipcalc.js' ]),
-		      0);
+                                  [ 'ipcalc.js' ]),
+                      0);
          assert.equal(stdout.string(),
-		      'Usage:  ipcalc address/mask newmask\n');
+                      'Usage:  ipcalc address/mask newmask\n');
     });
 
 
@@ -330,10 +330,10 @@ describe('ipcalc', function() {
        function() {
          let stdout = stringwritable.stringwritable();
          assert.equal(ipcalc.main(null, stdout, null,
-		                  [ 'ipcalc.js', '192.168.133.0/24' ]),
-		      0);
+                                  [ 'ipcalc.js', '192.168.133.0/24' ]),
+                      0);
          assert.equal(stdout.string(),
-		      '\
+                      '\
 network             broadcast           first               last              \
 \n\
 192.168.133.0/24    192.168.133.255/24  192.168.133.1/24    192.168.133.254/24\
@@ -345,10 +345,10 @@ network             broadcast           first               last              \
        function() {
          let stdout = stringwritable.stringwritable();
          assert.equal(ipcalc.main(null, stdout, null,
-		                  [ 'ipcalc.js', '192.168.133.0/24', '26' ]),
-		      0);
+                                  [ 'ipcalc.js', '192.168.133.0/24', '26' ]),
+                      0);
          assert.equal(stdout.string(),
-		      '\
+                      '\
 network             broadcast           first               last              \
 \n\
 192.168.133.0/26    192.168.133.63/26   192.168.133.1/26    192.168.133.62/26 \
