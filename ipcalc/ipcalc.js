@@ -80,7 +80,7 @@ const padright = function(s, len, c = ' ') {
 }
 
 
-const outputaddressdetailsheader = function(stdout) {
+const outputnetworkdetailsheader = function(stdout) {
   stdout.write(util.format('%s  %s  %s  %s\n',
                            padright('network', 18),
                            padright('broadcast', 18),
@@ -90,7 +90,7 @@ const outputaddressdetailsheader = function(stdout) {
 }
 
 
-const outputaddressdetails = function(stdout, word, mask) {
+const outputnetworkdetails = function(stdout, word, mask) {
   let network = wordmasktocidr(...networkaddress(word, mask));
   let broadcast = wordmasktocidr(...broadcastaddress(word, mask));
   let first = wordmasktocidr(...firsthostaddress(word, mask));
@@ -113,14 +113,14 @@ const outputusage = function(stdout) {
 const main = function(stdin, stdout, stderr, argv) {
   if (argv.length == 2) {
     let address = cidrtowordmask(argv[1]);
-    outputaddressdetailsheader(stdout);
-    outputaddressdetails(stdout, ...address);
+    outputnetworkdetailsheader(stdout);
+    outputnetworkdetails(stdout, ...address);
   } else if (argv.length == 3) {
     let address = cidrtowordmask(argv[1]);
     let newmask = parseInt(argv[2], 10);
-    outputaddressdetailsheader(stdout);
+    outputnetworkdetailsheader(stdout);
     for (let subnet of subnets(...address, newmask))
-      outputaddressdetails(stdout, ...subnet);
+      outputnetworkdetails(stdout, ...subnet);
   } else
     outputusage(stdout);
   return 0;
