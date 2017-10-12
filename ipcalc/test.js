@@ -9,6 +9,7 @@
 
 const assert = require('assert');
 const ipcalc = require('./ipcalc');
+const stringwritable = require('./lib/stringwritable.js');
 
 
 describe('ipcalc', function() {
@@ -309,6 +310,55 @@ describe('ipcalc', function() {
          let s = 'abcdeabcde';
          assert.equal(ipcalc.padright(s, 10, ' '),
                       s);
+    });
+  });
+
+
+  describe('#main()', function() {
+    it('outputs usage for no arguments',
+       function() {
+         let stdout = stringwritable.stringwritable();
+         assert.equal(ipcalc.main(null, stdout, null,
+		                  [ 'ipcalc.js' ]),
+		      0);
+         assert.equal(stdout.string(),
+		      'Usage:  ipcalc address/mask newmask\n');
+    });
+
+
+    it('outputs details for addressmask',
+       function() {
+         let stdout = stringwritable.stringwritable();
+         assert.equal(ipcalc.main(null, stdout, null,
+		                  [ 'ipcalc.js', '192.168.133.0/24' ]),
+		      0);
+         assert.equal(stdout.string(),
+		      '\
+network             broadcast           first               last              \
+\n\
+192.168.133.0/24    192.168.133.255/24  192.168.133.1/24    192.168.133.254/24\
+\n');
+    });
+
+
+    it('outputs details for addressmask newmask',
+       function() {
+         let stdout = stringwritable.stringwritable();
+         assert.equal(ipcalc.main(null, stdout, null,
+		                  [ 'ipcalc.js', '192.168.133.0/24', '26' ]),
+		      0);
+         assert.equal(stdout.string(),
+		      '\
+network             broadcast           first               last              \
+\n\
+192.168.133.0/26    192.168.133.63/26   192.168.133.1/26    192.168.133.62/26 \
+\n\
+192.168.133.64/26   192.168.133.127/26  192.168.133.65/26   192.168.133.126/26\
+\n\
+192.168.133.128/26  192.168.133.191/26  192.168.133.129/26  192.168.133.190/26\
+\n\
+192.168.133.192/26  192.168.133.255/26  192.168.133.193/26  192.168.133.254/26\
+\n');
     });
   });
 });

@@ -78,10 +78,11 @@ const padright = function(s, len, c = ' ') {
 
 
 const outputaddressdetailsheader = function(stdout) {
-  console.log(`${padright('network', 18)}  ` +
-              `${padright('broadcast', 18)}  ` +
-              `${padright('first', 18)}  ` +
-              `${padright('last', 18)}`);
+  stdout.write(`${padright('network', 18)}  ` +
+               `${padright('broadcast', 18)}  ` +
+               `${padright('first', 18)}  ` +
+               `${padright('last', 18)}\n`);
+  return 0;
 }
 
 
@@ -90,7 +91,14 @@ const outputaddressdetails = function(stdout, word, mask) {
   let broadcast = padright(wordmasktocidr(...broadcastaddress(word, mask)), 18);
   let first = padright(wordmasktocidr(...firsthostaddress(word, mask)), 18);
   let last = padright(wordmasktocidr(...lasthostaddress(word, mask)), 18);
-  console.log(`${network}  ${broadcast}  ${first}  ${last}`);
+  stdout.write(`${network}  ${broadcast}  ${first}  ${last}\n`);
+  return 0;
+}
+
+
+const outputusage = function(stdout) {
+  stdout.write('Usage:  ipcalc address/mask newmask\n');
+  return 0;
 }
 
 
@@ -105,7 +113,8 @@ const main = function(stdin, stdout, stderr, argv) {
     outputaddressdetailsheader(stdout);
     for (let subnet of subnets(...address, newmask))
       outputaddressdetails(stdout, ...subnet);
-  }
+  } else
+    outputusage(stdout);
   return 0;
 }
 
@@ -125,5 +134,6 @@ else
     'firsthostaddress': firsthostaddress,
     'lasthostaddress':  lasthostaddress,
     'subnets':          subnets,
-    'padright':         padright
+    'padright':         padright,
+    'main':             main
   };
