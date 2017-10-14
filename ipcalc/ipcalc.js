@@ -22,6 +22,8 @@ const cidrtowordmask = function(s) {
   let re =
     /([0-9]{1,3})\.([0-9]{1,3})\.([0-9]{1,3})\.([0-9]{1,3})\/([0-9]{1,2})/;
   let matches = s.match(re);
+  if (matches == null)
+    return null;
   let [ octet1, octet2, octet3, octet4, mask ] =
     matches.slice(1).map((e) => { return parseInt(e, 10); });
   let word = (octet1 << 24) | (octet2 << 16) | (octet3 << 8) | octet4;
@@ -111,18 +113,29 @@ const outputusage = function(stdout) {
 
 
 const main = function(stdin, stdout, stderr, argv) {
-  if (argv.length == 2) {
-    let wordmask = cidrtowordmask(argv[1]);
-    outputnetworkdetailsheader(stdout);
-    outputnetworkdetails(stdout, ...wordmask);
-  } else if (argv.length == 3) {
-    let wordmask = cidrtowordmask(argv[1]);
-    let newmask = parseInt(argv[2], 10);
-    outputnetworkdetailsheader(stdout);
-    for (let subnet of subnets(...wordmask, newmask))
-      outputnetworkdetails(stdout, ...subnet);
-  } else
+  if (argv.length != 2 && argv.length != 3) {
     outputusage(stdout);
+    return 0;
+  }
+
+  let wordmask = cidrtowordmask(argv[1]);
+  if (wordmask == null) {
+    stderr.write('Error:  Cannot parse address.\n');
+    return 1;
+  }
+
+  let newmask = wordmask[1];
+  if (argv.length == 3)
+    newmask = parseInt(argv[2], 10);
+  if (newmask == NaN) {
+    stderr.write('Error:  Cannot parse newmask.\n');
+    return 1;
+  }
+
+  outputnetworkdetailsheader(stdout);
+  for (let subnet of subnets(...wordmask, newmask))
+    outputnetworkdetails(stdout, ...subnet);
+
   return 0;
 }
 
