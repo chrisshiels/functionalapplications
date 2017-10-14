@@ -127,7 +127,7 @@ const main = function(stdin, stdout, stderr, argv) {
   let newmask = wordmask[1];
   if (argv.length === 3)
     newmask = parseInt(argv[2], 10);
-  if (newmask === NaN) {
+  if (isNaN(newmask)) {
     stderr.write('Error:  Cannot parse newmask.\n');
     return 1;
   }
