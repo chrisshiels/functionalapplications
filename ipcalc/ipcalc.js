@@ -27,6 +27,8 @@ const cidrtowordmask = function(s) {
   let [ octet1, octet2, octet3, octet4, mask ] =
     matches.slice(1).map((e) => { return parseInt(e, 10); });
   let word = (octet1 << 24) | (octet2 << 16) | (octet3 << 8) | octet4;
+  if (mask < 1 || mask > 32)
+    return null;
   return [ word, mask ];
 }
 
@@ -127,7 +129,7 @@ const main = function(stdin, stdout, stderr, argv) {
   let newmask = wordmask[1];
   if (argv.length === 3)
     newmask = parseInt(argv[2], 10);
-  if (isNaN(newmask)) {
+  if (isNaN(newmask) || newmask < 1 || newmask > 32) {
     stderr.write('Error:  Cannot parse newmask.\n');
     return 1;
   }
