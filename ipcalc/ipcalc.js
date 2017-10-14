@@ -105,7 +105,7 @@ const outputnetworkdetails = function(stdout, word, mask) {
 
 
 const outputusage = function(stdout) {
-  stdout.write('Usage:  ipcalc address/mask newmask\n');
+  stdout.write('Usage:  ipcalc address/mask [ newmask ]\n');
   return 0;
 }
 

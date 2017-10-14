@@ -322,7 +322,7 @@ describe('ipcalc', function() {
                                   [ 'ipcalc.js' ]),
                       0);
          assert.equal(stdout.string(),
-                      'Usage:  ipcalc address/mask newmask\n');
+                      'Usage:  ipcalc address/mask [ newmask ]\n');
     });
 
 
