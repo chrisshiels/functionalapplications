@@ -326,6 +326,28 @@ describe('ipcalc', function() {
     });
 
 
+    it('outputs error for incorrect addressmask',
+       function() {
+         let stderr = stringwritable.stringwritable();
+         assert.equal(ipcalc.main(null, null, stderr,
+                                  [ 'ipcalc.js', '192.168.999.0/24' ]),
+                      1);
+         assert.equal(stderr.string(),
+                      'Error:  Cannot parse address.\n');
+    });
+
+
+    it('outputs error for incorrect newmask',
+       function() {
+         let stderr = stringwritable.stringwritable();
+         assert.equal(ipcalc.main(null, null, stderr,
+                                  [ 'ipcalc.js', '192.168.133.0/24', '33' ]),
+                      1);
+         assert.equal(stderr.string(),
+                      'Error:  Cannot parse newmask.\n');
+    });
+
+
     it('outputs details for addressmask',
        function() {
          let stdout = stringwritable.stringwritable();
