@@ -1,0 +1,5 @@
+.cache
+prideandprejudice.txt
+*.pyc
+__pycache__
+virtualenv
