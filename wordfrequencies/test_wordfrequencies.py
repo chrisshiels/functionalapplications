@@ -25,6 +25,18 @@ def test_partial():
          2
 
 
+def test_removepossessives():
+  assert wordfrequencies.removepossessives('') == \
+         ''
+  assert wordfrequencies.removepossessives('File\'s contents') == \
+         'File contents'
+
+
+def test_rewritenonalphanumerics():
+    assert wordfrequencies.rewritenonalphanumerics('a,b.c;d:e-f\'g"') == \
+         'a b c d e f g '
+
+
 def test_splitwords():
   assert wordfrequencies.splitwords('') == \
          []

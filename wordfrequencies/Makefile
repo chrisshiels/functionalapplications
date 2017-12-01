@@ -4,7 +4,7 @@
 
 prideandprejudice.txt:
 	curl -L -o prideandprejudice.txt \
-		https://www.gutenberg.org/files/1342/1342-0.txt
+		https://www.gutenberg.org/files/1342/1342.txt
 
 
 clean:
