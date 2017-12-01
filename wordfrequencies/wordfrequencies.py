@@ -4,6 +4,7 @@
 # Chris Shiels.
 
 
+import re
 import sys
 
 
@@ -18,6 +19,14 @@ def partial(f, *args):
   def internal(*args):
     return f(*(args1 + args))
   return internal
+
+
+def removepossessives(s):
+  return s.replace('\'s', '')
+
+
+def rewritenonalphanumerics(s):
+  return re.sub('\W', ' ', s)
 
 
 def splitwords(s):
@@ -61,7 +70,9 @@ def outputfrequencies(stdout, l):
 
 
 def wordfrequencies(stdout, s):
-  ret = pipemaybe([ splitwords,
+  ret = pipemaybe([ removepossessives,
+                    rewritenonalphanumerics,
+                    splitwords,
                     lowercasewords,
                     dictfrequencies,
                     listfrequencies,
