@@ -1,5 +1,5 @@
 .cache
-prideandprejudice.txt
 *.pyc
 __pycache__
+sampletext.txt
 virtualenv

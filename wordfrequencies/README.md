@@ -12,5 +12,5 @@ host$ . virtualenv/bin/activate
 
 (virtualenv) host$ pytest -v
 
-(virtualenv) host$ python wordfrequencies.py
+(virtualenv) host$ python wordfrequencies.py < sampletext.txt
 ```
