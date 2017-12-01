@@ -2,10 +2,10 @@
 # Chris Shiels.
 
 
-prideandprejudice.txt:
-	curl -L -o prideandprejudice.txt \
+sampletext.txt:
+	curl -L -o sampletext.txt \
 		https://www.gutenberg.org/files/1342/1342.txt
 
 
 clean:
-	rm -f prideandprejudice.txt
+	rm -f sampletext.txt
