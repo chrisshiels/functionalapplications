@@ -10,6 +10,12 @@ import sys
 import piexif
 
 
+def pipemaybe(l):
+  def internal(v):
+    return reduce(lambda a, e: e(a) if a is not None else None, l, v)
+  return internal
+
+
 def loadexif(filename):
   return piexif.load(filename)
 
@@ -33,9 +39,10 @@ def usage(stdin, stdout, stderr):
 
 def renamebyexif(stdin, stdout, stderr, argv):
   for arg in argv:
-    arg1 = reduce(lambda a, e: e(a),
-                  [ loadexif, exifdatetime, parsedatetime, filedatetime ],
-                  arg)
+    arg1 = pipemaybe([ loadexif,
+                       exifdatetime,
+                       parsedatetime,
+                       filedatetime ])(arg)
     print >> stdout, 'mv -n {arg} {arg1}'.format(arg = arg, arg1 = arg1)
   return 0
 
