@@ -8,6 +8,17 @@ import StringIO
 import renamebyexif
 
 
+def test_pipemaybe():
+  def add1(x):
+    return x + 1
+  def addnone(x):
+    return None
+  assert renamebyexif.pipemaybe([add1, add1, add1 ])(0) == \
+         3
+  assert renamebyexif.pipemaybe([add1, addnone, add1 ])(0) == \
+         None
+
+
 def test_loadexif():
   exifdict = renamebyexif.loadexif('test.jpg')
   assert exifdict.__class__ == dict
