@@ -116,7 +116,7 @@ def main(stdin, stdout, stderr, argv):
     gridprint(g, stdout)
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
   sys.exit(main(sys.stdin, sys.stdout, sys.stderr, sys.argv[1:]))
 
 
