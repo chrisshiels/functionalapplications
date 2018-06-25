@@ -31,9 +31,9 @@ def expandnonprintables(g):
                       list(buf)))
 
 
-def write(g):
+def write(f, g):
   for buf in g:
-    print buf,
+    print >> f, buf,
 
 
 def parseargv(args, options):
@@ -50,7 +50,8 @@ def parseargv(args, options):
 def main(stdin, stdout, stderr, argv):
   args, options = parseargv(argv, {})
 
-  write(expandnonprintables(expandtabs(expandendoflines(read(512, stdin)))))
+  write(stdout,
+        expandnonprintables(expandtabs(expandendoflines(read(512, stdin)))))
 
   return 0
 
