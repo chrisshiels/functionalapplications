@@ -5,6 +5,19 @@ import string
 import sys
 
 
+def pipemaybe(l):
+  def internal(v):
+    return reduce(lambda a, e: e(a) if a is not None else a, l, v)
+  return internal
+
+
+def partial(f, *args):
+  args1 = args
+  def internal(*args):
+    return f(*(args1 + args))
+  return internal
+
+
 def read(buffersize, f):
   while True:
     buf = f.read(buffersize)
@@ -50,10 +63,14 @@ def parseargv(args, options):
 def main(stdin, stdout, stderr, argv):
   args, options = parseargv(argv, {})
 
-  write(stdout,
-        expandnonprintables(expandtabs(expandendoflines(read(512, stdin)))))
+  ret = pipemaybe([
+                    expandendoflines,
+                    expandtabs,
+                    expandnonprintables,
+                    partial(write, stdout),
+                  ])(read(512, stdin))
 
-  return 0
+  return 0 if ret is not None else 1
 
 
 if __name__ == '__main__':

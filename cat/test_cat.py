@@ -4,6 +4,32 @@ import StringIO
 import cat
 
 
+def test_pipemaybe_notnone():
+  def add1(x):
+    return x + 1
+
+  assert cat.pipemaybe([ add1, add1, add1 ])(0) == 3
+
+
+def test_pipemaybe_none():
+  def add1(x):
+    return x + 1
+
+  def addnone(x):
+    return None
+
+  assert cat.pipemaybe([ add1, addnone, add1 ])(0) is None
+
+
+def test_partial():
+  def add(x, y):
+    return x + y
+
+  add1 = cat.partial(add, 1)
+
+  assert add1(1) == 2
+
+
 def test_read_single():
   f = StringIO.StringIO('''\
 Line 1
