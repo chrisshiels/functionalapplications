@@ -1,4 +1,5 @@
 import StringIO
+import sys
 
 
 import cat
@@ -132,3 +133,16 @@ def test_parseargv_separateoptions():
                          [ 'filename' ],
                          { 'v': True, 'e': True, 't': True }
                        )
+
+
+def test_pipelineget():
+  assert cat.expandendoflines not in cat.pipelineget({}, sys.stdout)
+  assert cat.expandendoflines in cat.pipelineget({ 'e': True }, sys.stdout)
+
+  assert cat.expandtabs not in cat.pipelineget({}, sys.stdout)
+  assert cat.expandtabs in cat.pipelineget({ 't': True }, sys.stdout)
+
+  assert cat.expandnonprintables not in cat.pipelineget({}, sys.stdout)
+  assert cat.expandnonprintables in cat.pipelineget({ 'e': True }, sys.stdout)
+  assert cat.expandnonprintables in cat.pipelineget({ 't': True }, sys.stdout)
+  assert cat.expandnonprintables in cat.pipelineget({ 'v': True }, sys.stdout)

@@ -63,15 +63,29 @@ def parseargv(args, options):
     return args, options
 
 
-def main(stdin, stdout, stderr, argv):
-  args, options = parseargv(argv, {})
+def pipelineget(options, stdout):
+  return filter(lambda e: e is not None,
+                [
+                  partial(read, 1024 * 1024),
+                  expandendoflines \
+                    if 'e' in options \
+                    else None,
+                  expandtabs \
+                    if 't' in options \
+                    else None,
+                  expandnonprintables \
+                    if 'e' in options or 't' in options or 'v' in options \
+                    else None,
+                  partial(write, stdout)
+                ])
 
-  ret = pipemaybe([
-                    expandendoflines,
-                    expandtabs,
-                    expandnonprintables,
-                    partial(write, stdout),
-                  ])(read(512, stdin))
+
+def main(stdin, stdout, stderr, argv):
+  args, options = parseargv(argv[1:], {})
+
+  pipeline = pipelineget(options, stdout)
+
+  ret = pipemaybe(pipeline)(stdin)
 
   return 0 if ret is not None else 1
 
