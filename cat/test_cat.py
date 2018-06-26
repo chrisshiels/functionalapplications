@@ -90,7 +90,7 @@ def test_write():
   cat.write(f, [ 'huey\n',
                  'dewey',
                  'louie\n' ])
-  assert f.getvalue() == 'huey\ndewey louie\n'
+  assert f.getvalue() == 'huey\ndeweylouie\n'
 
 
 def test_parseargv_noarguments():

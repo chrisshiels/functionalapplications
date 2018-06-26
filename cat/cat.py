@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 
 
+from __future__ import print_function
+
+
 import string
 import sys
 
@@ -46,7 +49,7 @@ def expandnonprintables(g):
 
 def write(f, g):
   for buf in g:
-    print >> f, buf,
+    print(buf, sep = '', end = '', file = f)
 
 
 def parseargv(args, options):
