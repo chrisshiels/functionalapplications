@@ -56,6 +56,12 @@ Line 3
   assert g.next() == 'Line 3\n'
 
 
+def test_read_binary():
+  f = StringIO.StringIO('\xff\xff\xff')
+  g = cat.read(128, f)
+  assert g.next() == '\xff\xff\xff'
+
+
 def test_expandendoflines():
   g = cat.expandendoflines([ 'huey\n',
                              'dewey',
