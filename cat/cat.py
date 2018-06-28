@@ -21,35 +21,32 @@ def partial(f, *args):
   return internal
 
 
-def read(buffersize, f):
-  while True:
-    buf = f.read(buffersize)
-    if buf == '':
-      break
-    yield buf
+def read(f):
+  for line in f:
+    yield line
 
 
 def expandendoflines(g):
-  for buf in g:
-    yield buf.replace('\n', '$\n')
+  for line in g:
+    yield line[0:-1] + '$\n'
 
 
 def expandtabs(g):
-  for buf in g:
-    yield buf.replace('\t', '^I')
+  for line in g:
+    yield line.replace('\t', '^I')
 
 
 def expandnonprintables(g):
-  for buf in g:
+  for line in g:
     yield ''.join(map(lambda e: e if \
                                 e in string.printable else \
                                 '^' + chr(ord('A') + ord(e) - 1),
-                      list(buf)))
+                      list(line)))
 
 
 def write(f, g):
-  for buf in g:
-    print(buf, sep = '', end = '', file = f)
+  for line in g:
+    print(line, sep = '', end = '', file = f)
 
 
 def parseargv(args, options):
@@ -66,7 +63,7 @@ def parseargv(args, options):
 def pipelineget(options, stdout):
   return filter(lambda e: e is not None,
                 [
-                  partial(read, 1024 * 1024),
+                  read,
                   expandendoflines \
                     if 'e' in options \
                     else None,

@@ -31,67 +31,47 @@ def test_partial():
   assert add1(1) == 2
 
 
-def test_read_single():
+def test_read():
   f = StringIO.StringIO('''\
 Line 1
 Line 2
 Line 3
 ''')
-  g = cat.read(128, f)
-  assert g.next() == '''\
-Line 1
-Line 2
-Line 3
-'''
-
-
-def test_read_multiple():
-  f = StringIO.StringIO('''\
-Line 1
-Line 2
-Line 3
-''')
-  g = cat.read(7, f)
+  g = cat.read(f)
   assert g.next() == 'Line 1\n'
   assert g.next() == 'Line 2\n'
   assert g.next() == 'Line 3\n'
 
 
-def test_read_binary():
-  f = StringIO.StringIO('\xff\xff\xff')
-  g = cat.read(128, f)
-  assert g.next() == '\xff\xff\xff'
-
-
 def test_expandendoflines():
   g = cat.expandendoflines([ 'huey\n',
-                             'dewey',
+                             'dewey\n',
                              'louie\n' ])
   assert g.next() == 'huey$\n'
-  assert g.next() == 'dewey'
+  assert g.next() == 'dewey$\n'
   assert g.next() == 'louie$\n'
 
 
 def test_expandtabs():
-  g = cat.expandtabs([ 'huey\tdewey',
-                       '\t\tlouie' ])
-  assert g.next() == 'huey^Idewey'
-  assert g.next() == '^I^Ilouie'
+  g = cat.expandtabs([ 'huey\tdewey\n',
+                       '\t\tlouie\n' ])
+  assert g.next() == 'huey^Idewey\n'
+  assert g.next() == '^I^Ilouie\n'
 
 
 def test_expandnonprintables():
-  g = cat.expandnonprintables([ 'huey\001dewey',
-                                '\002\003louie' ])
-  assert g.next() == 'huey^Adewey'
-  assert g.next() == '^B^Clouie'
+  g = cat.expandnonprintables([ 'huey\001dewey\n',
+                                '\002\003louie\n' ])
+  assert g.next() == 'huey^Adewey\n'
+  assert g.next() == '^B^Clouie\n'
 
 
 def test_write():
   f = StringIO.StringIO()
   cat.write(f, [ 'huey\n',
-                 'dewey',
+                 'dewey\n',
                  'louie\n' ])
-  assert f.getvalue() == 'huey\ndeweylouie\n'
+  assert f.getvalue() == 'huey\ndewey\nlouie\n'
 
 
 def test_parseargv_noarguments():
