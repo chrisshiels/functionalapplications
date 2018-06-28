@@ -44,6 +44,13 @@ def expandnonprintables(g):
                       list(line)))
 
 
+def prependlinenumber(g):
+  lineno = 0
+  for line in g:
+    lineno += 1
+    yield '%6d\t%s' % ( lineno, line )
+
+
 def write(f, g):
   for line in g:
     print(line, sep = '', end = '', file = f)
@@ -72,6 +79,9 @@ def pipelineget(options, stdout):
                     else None,
                   expandnonprintables \
                     if 'e' in options or 't' in options or 'v' in options \
+                    else None,
+                  prependlinenumber \
+                    if 'n' in options \
                     else None,
                   partial(write, stdout)
                 ])
