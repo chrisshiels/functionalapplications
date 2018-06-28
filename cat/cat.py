@@ -26,6 +26,15 @@ def read(f):
     yield line
 
 
+def removerepeatedemptylines(g):
+  previousline = None
+  for line in g:
+    if line == '\n' and line == previousline:
+      continue
+    yield line
+    previousline = line
+
+
 def expandendoflines(g):
   for line in g:
     yield line[0:-1] + '$\n'
@@ -71,6 +80,9 @@ def pipelineget(options, stdout):
   return filter(lambda e: e is not None,
                 [
                   read,
+                  removerepeatedemptylines \
+                    if 's' in options \
+                    else None,
                   expandendoflines \
                     if 'e' in options \
                     else None,

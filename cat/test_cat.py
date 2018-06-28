@@ -43,6 +43,23 @@ Line 3
   assert g.next() == 'Line 3\n'
 
 
+def test_removerepeatedemptylines():
+  g = cat.removerepeatedemptylines([ 'huey\n',
+                                     '\n',
+                                     '\n',
+                                     'dewey\n',
+                                     '\n',
+                                     '\n',
+                                     '\n',
+                                     '\n',
+                                     'louie\n' ])
+  assert g.next() == 'huey\n'
+  assert g.next() == '\n'
+  assert g.next() == 'dewey\n'
+  assert g.next() == '\n'
+  assert g.next() == 'louie\n'
+
+
 def test_expandendoflines():
   g = cat.expandendoflines([ 'huey\n',
                              'dewey\n',
