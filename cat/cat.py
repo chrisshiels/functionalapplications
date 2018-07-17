@@ -8,9 +8,9 @@ import string
 import sys
 
 
-def pipemaybe(l):
+def pipe(l):
   def internal(v):
-    return reduce(lambda a, e: e(a) if a is not None else a, l, v)
+    return reduce(lambda a, e: e(a), l, v)
   return internal
 
 
@@ -63,6 +63,7 @@ def prependlinenumber(g):
 def write(f, g):
   for line in g:
     print(line, sep = '', end = '', file = f)
+  return 0
 
 
 def parseargs(options, args):
@@ -104,7 +105,7 @@ def main(stdin, stdout, stderr, argv):
 
   pipeline = pipelineget(options, stdout)
 
-  ret = pipemaybe(pipeline)(stdin)
+  ret = pipe(pipeline)(stdin)
 
   return 0 if ret is not None else 1
 

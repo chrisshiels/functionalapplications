@@ -5,21 +5,11 @@ import sys
 import cat
 
 
-def test_pipemaybe_notnone():
+def test_pipe():
   def add1(x):
     return x + 1
 
-  assert cat.pipemaybe([ add1, add1, add1 ])(0) == 3
-
-
-def test_pipemaybe_none():
-  def add1(x):
-    return x + 1
-
-  def addnone(x):
-    return None
-
-  assert cat.pipemaybe([ add1, addnone, add1 ])(0) is None
+  assert cat.pipe([ add1, add1, add1 ])(0) == 3
 
 
 def test_partial():
