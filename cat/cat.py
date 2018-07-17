@@ -66,6 +66,19 @@ def write(f, g):
   return 0
 
 
+def cat(pipeline, stdin, args):
+  if not args:
+    return pipe(pipeline)(stdin)
+  else:
+    for arg in args:
+      f = open(arg)
+      ret = pipe(pipeline)(f)
+      f.close()
+      if ret != 0:
+        break
+    return ret
+
+
 def parseargs(options, args):
   if not args:
     return options, args
@@ -75,6 +88,11 @@ def parseargs(options, args):
     return parseargs(options, args[1:])
   else:
     return options, args
+
+
+def checkargs(options):
+  return len(filter(lambda e: e not in [ 'e', 'n', 's', 't', 'v' ],
+                    options.keys())) == 0
 
 
 def pipelineget(options, stdout):
@@ -100,14 +118,26 @@ def pipelineget(options, stdout):
                 ])
 
 
+def usage(f, exitcode):
+  print >> f, '''\
+Usage: cat [ options ] [ file ... ]
+
+.
+.
+'''
+  return exitcode
+
+
 def main(stdin, stdout, stderr, argv):
-  args, options = parseargs({}, argv[1:])
+  if len(argv) == 2 and argv[1] in ('-h', '--help'):
+    return usage(stdout, 0)
+
+  options, args = parseargs({}, argv[1:])
+  if not checkargs(options):
+    return usage(stderr, 1)
 
   pipeline = pipelineget(options, stdout)
-
-  ret = pipe(pipeline)(stdin)
-
-  return 0 if ret is not None else 1
+  return cat(pipeline, stdin, args)
 
 
 if __name__ == '__main__':
