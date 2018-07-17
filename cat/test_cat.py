@@ -100,44 +100,44 @@ def test_write():
   assert f.getvalue() == 'huey\ndewey\nlouie\n'
 
 
-def test_parseargv_noarguments():
-  assert cat.parseargv([], {}) == \
-                       ( [], {} )
+def test_parseargs_noarguments():
+  assert cat.parseargs({}, []) == \
+                       ( {}, [] )
 
 
-def test_parseargv_combinedoptions():
-  assert cat.parseargv([ '-v', 'filename' ], {}) == \
+def test_parseargs_combinedoptions():
+  assert cat.parseargs({}, [ '-v', 'filename' ]) == \
                        (
-                         [ 'filename' ],
-                         { 'v': True }
+                         { 'v': True },
+                         [ 'filename' ]
                        )
-  assert cat.parseargv([ '-ve', 'filename' ], {}) == \
+  assert cat.parseargs({}, [ '-ve', 'filename' ]) == \
                        (
-                         [ 'filename' ],
-                         { 'v': True, 'e': True }
+                         { 'v': True, 'e': True },
+                         [ 'filename' ]
                        )
-  assert cat.parseargv([ '-vet', 'filename' ], {}) == \
+  assert cat.parseargs({}, [ '-vet', 'filename' ]) == \
                        (
-                         [ 'filename' ],
-                         { 'v': True, 'e': True, 't': True }
+                         { 'v': True, 'e': True, 't': True },
+                         [ 'filename' ]
                        )
 
 
-def test_parseargv_separateoptions():
-  assert cat.parseargv([ '-v', 'filename' ], {}) == \
+def test_parseargs_separateoptions():
+  assert cat.parseargs({}, [ '-v', 'filename' ]) == \
                        (
-                         [ 'filename' ],
-                         { 'v': True }
+                         { 'v': True },
+                         [ 'filename' ]
                        )
-  assert cat.parseargv([ '-v' , '-e', 'filename' ], {}) == \
+  assert cat.parseargs({}, [ '-v' , '-e', 'filename' ]) == \
                        (
-                         [ 'filename' ],
-                         { 'v': True, 'e': True }
+                         { 'v': True, 'e': True },
+                         [ 'filename' ]
                        )
-  assert cat.parseargv([ '-v', '-e', '-t', 'filename' ], {}) == \
+  assert cat.parseargs({}, [ '-v', '-e', '-t', 'filename' ]) == \
                        (
-                         [ 'filename' ],
-                         { 'v': True, 'e': True, 't': True }
+                         { 'v': True, 'e': True, 't': True },
+                         [ 'filename' ]
                        )
 
 

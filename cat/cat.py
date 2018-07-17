@@ -65,15 +65,15 @@ def write(f, g):
     print(line, sep = '', end = '', file = f)
 
 
-def parseargv(args, options):
+def parseargs(options, args):
   if not args:
-    return args, options
+    return options, args
   elif args[0][0] == '-':
     for c in list(args[0][1:]):
       options[c] = True
-    return parseargv(args[1:], options)
+    return parseargs(options, args[1:])
   else:
-    return args, options
+    return options, args
 
 
 def pipelineget(options, stdout):
@@ -100,7 +100,7 @@ def pipelineget(options, stdout):
 
 
 def main(stdin, stdout, stderr, argv):
-  args, options = parseargv(argv[1:], {})
+  args, options = parseargs({}, argv[1:])
 
   pipeline = pipelineget(options, stdout)
 
