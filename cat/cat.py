@@ -28,7 +28,7 @@ def read(f):
 def removerepeatedemptylines(g):
   previousline = None
   for line in g:
-    if line == '\n' and line == previousline:
+    if line == '\n' and previousline == '\n':
       continue
     yield line
     previousline = line
