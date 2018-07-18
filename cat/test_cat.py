@@ -2,7 +2,35 @@ import StringIO
 import sys
 
 
+import pytest
+
+
 import cat
+
+
+@pytest.fixture
+def helloworldfile(tmpdir):
+  f = tmpdir.mkdir('fixtures').join('helloworld.txt')
+  f.write('''\
+Hello
+World
+''')
+  return f
+
+
+@pytest.fixture
+def stdin():
+  return StringIO.StringIO()
+
+
+@pytest.fixture
+def stdout():
+  return StringIO.StringIO()
+
+
+@pytest.fixture
+def stderr():
+  return StringIO.StringIO()
 
 
 def test_pipe():
@@ -102,10 +130,16 @@ def test_prependlinenumbers():
 
 def test_write():
   f = StringIO.StringIO()
-  cat.write(f, [ 'huey\n',
-                 'dewey\n',
-                 'louie\n' ])
+  ret = cat.write(f, [ 'huey\n',
+                       'dewey\n',
+                       'louie\n' ])
+  assert ret == 0
   assert f.getvalue() == 'huey\ndewey\nlouie\n'
+
+
+def test_cat():
+  ret = cat.cat([], 0, [])
+  assert ret == 0
 
 
 def test_parseargs_noarguments():
@@ -149,6 +183,11 @@ def test_parseargs_separateoptions():
                        )
 
 
+def test_checkargs():
+  assert cat.checkargs({ 'e': True }) == True
+  assert cat.checkargs({ 'x': True }) == False
+
+
 def test_pipelineget():
   assert cat.expandendoflines not in cat.pipelineget({}, sys.stdout)
   assert cat.expandendoflines in cat.pipelineget({ 'e': True },
@@ -173,3 +212,31 @@ def test_pipelineget():
                                                     sys.stdout)
   assert cat.expandnonprintables in cat.pipelineget({ 'v': True },
                                                     sys.stdout)
+
+
+def test_main_singlefile(helloworldfile, stdin, stdout, stderr):
+  ret = cat.main(stdin, stdout, stderr, [ 'file.py',
+                                          str(helloworldfile) ])
+  assert ret == 0
+  assert stdout.getvalue() == '''\
+Hello
+World
+'''
+  assert stderr.getvalue() == ''
+
+
+def test_main_multiplefiles(helloworldfile, stdin, stdout, stderr):
+  ret = cat.main(stdin, stdout, stderr, [ 'file.py',
+                                          str(helloworldfile),
+                                          str(helloworldfile),
+                                          str(helloworldfile) ])
+  assert ret == 0
+  assert stdout.getvalue() == '''\
+Hello
+World
+Hello
+World
+Hello
+World
+'''
+  assert stderr.getvalue() == ''
