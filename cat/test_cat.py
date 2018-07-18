@@ -37,6 +37,8 @@ Line 3
   assert g.next() == 'Line 1\n'
   assert g.next() == 'Line 2\n'
   assert g.next() == 'Line 3\n'
+  with pytest.raises(StopIteration):
+    g.next()
 
 
 def test_removerepeatedemptylines():
@@ -54,6 +56,8 @@ def test_removerepeatedemptylines():
   assert g.next() == 'dewey\n'
   assert g.next() == '\n'
   assert g.next() == 'louie\n'
+  with pytest.raises(StopIteration):
+    g.next()
 
 
 def test_expandendoflines():
@@ -63,6 +67,8 @@ def test_expandendoflines():
   assert g.next() == 'huey$\n'
   assert g.next() == 'dewey$\n'
   assert g.next() == 'louie$\n'
+  with pytest.raises(StopIteration):
+    g.next()
 
 
 def test_expandtabs():
@@ -70,6 +76,8 @@ def test_expandtabs():
                        '\t\tlouie\n' ])
   assert g.next() == 'huey^Idewey\n'
   assert g.next() == '^I^Ilouie\n'
+  with pytest.raises(StopIteration):
+    g.next()
 
 
 def test_expandnonprintables():
@@ -77,6 +85,8 @@ def test_expandnonprintables():
                                 '\002\003louie\n' ])
   assert g.next() == 'huey^Adewey\n'
   assert g.next() == '^B^Clouie\n'
+  with pytest.raises(StopIteration):
+    g.next()
 
 
 def test_prependlinenumbers():
@@ -86,6 +96,8 @@ def test_prependlinenumbers():
   assert g.next() == '     1\thuey\n'
   assert g.next() == '     2\tdewey\n'
   assert g.next() == '     3\tlouie\n'
+  with pytest.raises(StopIteration):
+    g.next()
 
 
 def test_write():
