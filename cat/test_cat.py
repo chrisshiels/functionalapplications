@@ -6,10 +6,16 @@ import cat
 
 
 def test_pipe():
-  def add1(x):
-    return x + 1
+  def adda(l):
+    return l + [ 'a' ]
 
-  assert cat.pipe([ add1, add1, add1 ])(0) == 3
+  def addb(l):
+    return l + [ 'b' ]
+
+  def addc(l):
+    return l + [ 'c' ]
+
+  assert cat.pipe([ adda, addb, addc ])([]) == [ 'a', 'b', 'c' ]
 
 
 def test_partial():
