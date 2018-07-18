@@ -133,12 +133,25 @@ def test_parseargs_separateoptions():
 
 def test_pipelineget():
   assert cat.expandendoflines not in cat.pipelineget({}, sys.stdout)
-  assert cat.expandendoflines in cat.pipelineget({ 'e': True }, sys.stdout)
+  assert cat.expandendoflines in cat.pipelineget({ 'e': True },
+                                                 sys.stdout)
+
+  assert cat.prependlinenumbers not in cat.pipelineget({}, sys.stdout)
+  assert cat.prependlinenumbers in cat.pipelineget({ 'n': True },
+                                                   sys.stdout)
+
+  assert cat.removerepeatedemptylines not in cat.pipelineget({}, sys.stdout)
+  assert cat.removerepeatedemptylines in cat.pipelineget({ 's': True },
+                                                         sys.stdout)
 
   assert cat.expandtabs not in cat.pipelineget({}, sys.stdout)
-  assert cat.expandtabs in cat.pipelineget({ 't': True }, sys.stdout)
+  assert cat.expandtabs in cat.pipelineget({ 't': True },
+                                           sys.stdout)
 
   assert cat.expandnonprintables not in cat.pipelineget({}, sys.stdout)
-  assert cat.expandnonprintables in cat.pipelineget({ 'e': True }, sys.stdout)
-  assert cat.expandnonprintables in cat.pipelineget({ 't': True }, sys.stdout)
-  assert cat.expandnonprintables in cat.pipelineget({ 'v': True }, sys.stdout)
+  assert cat.expandnonprintables in cat.pipelineget({ 'e': True },
+                                                    sys.stdout)
+  assert cat.expandnonprintables in cat.pipelineget({ 't': True },
+                                                    sys.stdout)
+  assert cat.expandnonprintables in cat.pipelineget({ 'v': True },
+                                                    sys.stdout)
