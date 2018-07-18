@@ -73,10 +73,10 @@ def test_expandnonprintables():
   assert g.next() == '^B^Clouie\n'
 
 
-def test_prependlinenumber():
-  g = cat.prependlinenumber([ 'huey\n',
-                              'dewey\n',
-                              'louie\n' ])
+def test_prependlinenumbers():
+  g = cat.prependlinenumbers([ 'huey\n',
+                               'dewey\n',
+                               'louie\n' ])
   assert g.next() == '     1\thuey\n'
   assert g.next() == '     2\tdewey\n'
   assert g.next() == '     3\tlouie\n'

@@ -53,7 +53,7 @@ def expandnonprintables(g):
                       list(line)))
 
 
-def prependlinenumber(g):
+def prependlinenumbers(g):
   lineno = 0
   for line in g:
     lineno += 1
@@ -111,7 +111,7 @@ def pipelineget(options, stdout):
                   expandnonprintables \
                     if 'e' in options or 't' in options or 'v' in options \
                     else None,
-                  prependlinenumber \
+                  prependlinenumbers \
                     if 'n' in options \
                     else None,
                   partial(write, stdout)
