@@ -136,6 +136,24 @@ def test_integer():
   assert expr.integer()('  44xxx') == (44, 'xxx')
 
 
+def test_parser():
+  assert expr.parser()('  4 + 4xxx') is None
+  assert expr.parser()('  4 + 4') == (8, '')
+  assert expr.parser()('  (1 + 1) * (2 + 2)') == (8, '')
+
+
+def test_parse_fail(stdout, stderr):
+  assert expr.parse('4 + xxx', stdout, stderr) is 1
+  assert stdout.getvalue() == ''
+  assert stderr.getvalue().rstrip() == 'Error'
+
+
+def test_parse_success(stdout, stderr):
+  assert expr.parse('4 + 4', stdout, stderr) is 0
+  assert stdout.getvalue().rstrip() == '8'
+  assert stderr.getvalue() == ''
+
+
 def test_main_singleargument(stdin, stdout, stderr):
   ret = expr.main(stdin, stdout, stderr, [ 'file.py',
                                            '4 + 4 * 2' ])
