@@ -34,6 +34,21 @@ def test_identitylist():
   assert expr.identitylist(1, 2, 3) == (1, 2, 3)
 
 
+def test_token():
+  assert expr.token('x')(' y') is None
+  assert expr.token('x')(' x') == ('x', '')
+  assert expr.token('x', len)(' x') == (1, '')
+  assert expr.token('x+y')(' yxxxyy') is None
+  assert expr.token('x+y')(' xxxyy') == ('xxxy', 'y')
+  assert expr.token('x+y', len)(' xxxyy') == (4, 'y')
+
+
+def test_end():
+  assert expr.end()(' hello') is None
+  assert expr.end()(' ') == ('', '')
+  assert expr.end()('') == ('', '')
+
+
 def test_main_singleargument(stdin, stdout, stderr):
   ret = expr.main(stdin, stdout, stderr, [ 'file.py',
                                            '4 + 4 * 2' ])
