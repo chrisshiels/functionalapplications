@@ -83,6 +83,36 @@ def test_alt():
                    lambda x: x * 2)('abc') == ('aa', 'bc')
 
 
+def test_add():
+  assert expr.add()(' xxx') is None
+  assert expr.add()(' +xxx') == ('+', 'xxx')
+
+
+def test_subtract():
+  assert expr.subtract()(' xxx') is None
+  assert expr.subtract()(' -xxx') == ('-', 'xxx')
+
+
+def test_multiply():
+  assert expr.multiply()(' xxx') is None
+  assert expr.multiply()(' *xxx') == ('*', 'xxx')
+
+
+def test_divide():
+  assert expr.divide()(' xxx') is None
+  assert expr.divide()(' /xxx') == ('/', 'xxx')
+
+
+def test_leftparen():
+  assert expr.leftparen()(' xxx') is None
+  assert expr.leftparen()(' (xxx') == ('(', 'xxx')
+
+
+def test_rightparen():
+  assert expr.rightparen()(' xxx') is None
+  assert expr.rightparen()(' )xxx') == (')', 'xxx')
+
+
 def test_main_singleargument(stdin, stdout, stderr):
   ret = expr.main(stdin, stdout, stderr, [ 'file.py',
                                            '4 + 4 * 2' ])
