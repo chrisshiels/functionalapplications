@@ -22,6 +22,18 @@ def stderr():
   return StringIO.StringIO()
 
 
+def test_identity():
+  assert expr.identity(None) is None
+  assert expr.identity(1) == 1
+
+
+def test_identitylist():
+  assert expr.identitylist(None) == (None,)
+  assert expr.identitylist(1) == (1,)
+  assert expr.identitylist(1, 2) == (1, 2)
+  assert expr.identitylist(1, 2, 3) == (1, 2, 3)
+
+
 def test_main_singleargument(stdin, stdout, stderr):
   ret = expr.main(stdin, stdout, stderr, [ 'file.py',
                                            '4 + 4 * 2' ])
