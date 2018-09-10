@@ -49,6 +49,40 @@ def test_end():
   assert expr.end()('') == ('', '')
 
 
+def test_then():
+  def digit():
+    def digit(s):
+      return expr.token('\d')(s)
+    return digit
+
+  assert expr.then([ digit(), digit(), digit() ],
+                   lambda x, y, z: int(x) + int(y) + int(z))('---') is None
+  assert expr.then([ digit(), digit(), digit() ],
+                   lambda x, y, z: int(x) + int(y) + int(z))('123') == (6, '')
+
+
+def test_alt():
+  def digit():
+    def digit(s):
+      return expr.token('\d')(s)
+    return digit
+
+  def letter():
+    def letter(s):
+      return expr.token('[a-z]')(s)
+    return letter
+
+  assert expr.alt([ digit(),
+                    letter() ],
+                   lambda x: x * 2)('---') is None
+  assert expr.alt([ digit(),
+                    letter() ],
+                   lambda x: x * 2)('123') == ('11', '23')
+  assert expr.alt([ digit(),
+                    letter() ],
+                   lambda x: x * 2)('abc') == ('aa', 'bc')
+
+
 def test_main_singleargument(stdin, stdout, stderr):
   ret = expr.main(stdin, stdout, stderr, [ 'file.py',
                                            '4 + 4 * 2' ])
