@@ -113,6 +113,29 @@ def test_rightparen():
   assert expr.rightparen()(' )xxx') == (')', 'xxx')
 
 
+def test_expression():
+  assert expr.expression()('  + 4xxx') is None
+  assert expr.expression()('  4 + 4xxx') == (8, 'xxx')
+  assert expr.expression()('  4 - 4xxx') == (0, 'xxx')
+
+
+def test_term():
+  assert expr.term()('  * 4xxx') is None
+  assert expr.term()('  4 * 4xxx') == (16, 'xxx')
+  assert expr.term()('  4 / 4xxx') == (1, 'xxx')
+
+
+def test_primary():
+  assert expr.primary()('  xxx') is None
+  assert expr.primary()('  4xxx') == (4, 'xxx')
+  assert expr.primary()('  ( 4 )xxx') == (4, 'xxx')
+
+
+def test_integer():
+  assert expr.integer()('  x44xxx') is None
+  assert expr.integer()('  44xxx') == (44, 'xxx')
+
+
 def test_main_singleargument(stdin, stdout, stderr):
   ret = expr.main(stdin, stdout, stderr, [ 'file.py',
                                            '4 + 4 * 2' ])
