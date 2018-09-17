@@ -56,6 +56,53 @@ def alt(l, f = identity):
   return alt
 
 
+# Alternate monad pipeline implementation, though not as readable:
+#def then(l, f = identitylist):
+#  def bind(v, f):
+#    if not v:
+#      return None
+#    (states, s) = v
+#    ret = f(s)
+#    if not ret:
+#      return None
+#    (state1, s1) = ret
+#    return (states + [ state1 ], s1)
+#
+#  def unit(s):
+#    return ([], s)
+#
+#  def then(s):
+#    ret = reduce(bind, l, unit(s))
+#    if not ret:
+#      return None
+#    (states, s) = ret
+#    return (f(*states), s)
+#  return then
+
+
+# Alternate monad pipeline implementation, though not as readable:
+#def alt(l, f = identity):
+#  def bind(v, f):
+#    (state, s) = v
+#    if state is not None:
+#      return v
+#    ret = f(s)
+#    if not ret:
+#      return v
+#    return ret
+#
+#  def unit(s):
+#    return (None, s)
+#
+#  def alt(s):
+#    ret = reduce(bind, l, unit(s))
+#    (state, s) = ret
+#    if state is None:
+#      return None
+#    return (f(state), s)
+#  return alt
+
+
 def add():
   def add(s):
     return token('\+')(s)
