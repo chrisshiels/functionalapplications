@@ -1,6 +1,6 @@
 # cat
 
-Generator-based implementation of cat.
+Pipeline generator-based implementation of cat.
 ```
 host$ virtualenv virtualenv
 

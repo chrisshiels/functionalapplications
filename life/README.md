@@ -1,6 +1,6 @@
 # life
 
-Implementation of Conway's Game of Life in functional-style Python.
+Conway's Game of Life.
 ```
 host$ virtualenv virtualenv
 
