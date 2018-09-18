@@ -1,7 +1,6 @@
 # ipcalc
 
-Script to calculate subnet address ranges.
-
+Calculate subnet address ranges.
 ```
 host$ npm test
 

@@ -1,6 +1,6 @@
 # wordfrequencies
 
-Count word frequencies.
+Pipeline-based count word frequencies.
 ```
 host$ make
 
