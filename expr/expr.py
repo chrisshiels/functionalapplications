@@ -139,34 +139,34 @@ def rightparen():
   return rightparen
 
 
-# expression -> term '+' term
-#               term '-' term
+# expression -> term '+' expression
+#               term '-' expression
 #               term
 def expression():
-  def expression(s):
+  def internal(s):
     return alt([
-                 then([ term(), add(), term() ],
+                 then([ term(), add(), expression() ],
                       lambda a, _, b: a + b),
-                 then([ term(), subtract(), term() ],
+                 then([ term(), subtract(), expression() ],
                       lambda a, _, b: a - b),
                  term()
                ])(s)
-  return expression
+  return internal
 
 
-# term -> primary '*' primary
-#         primary '/' primary
+# term -> primary '*' term
+#         primary '/' term
 #         primary
 def term():
-  def term(s):
+  def internal(s):
     return alt([
-                 then([ primary(), multiply(), primary() ],
+                 then([ primary(), multiply(), term() ],
                       lambda a, _, b: a * b),
-                 then([ primary(), divide(), primary() ],
+                 then([ primary(), divide(), term() ],
                       lambda a, _, b: a / b),
                  primary()
                ])(s)
-  return term
+  return internal
 
 
 # primary -> integer

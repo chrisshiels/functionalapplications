@@ -161,13 +161,24 @@ def test_main_singleargument(stdin, stdout, stderr):
   assert stderr.getvalue() == ''
 
 
-def test_main_multiplearguments(stdin, stdout, stderr):
+def test_main_multiplearguments1(stdin, stdout, stderr):
   assert expr.main(stdin, stdout, stderr, [ 'file.py',
                                             '4',
                                             '+',
                                             '4',
                                             '*',
                                             '2' ]) == 0
+  assert stdout.getvalue().rstrip() == '12'
+  assert stderr.getvalue() == ''
+
+
+def test_main_multiplearguments2(stdin, stdout, stderr):
+  assert expr.main(stdin, stdout, stderr, [ 'file.py',
+                                            '4',
+                                            '+',
+                                            '4',
+                                            '+',
+                                            '4' ]) == 0
   assert stdout.getvalue().rstrip() == '12'
   assert stderr.getvalue() == ''
 
