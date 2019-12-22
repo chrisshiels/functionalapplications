@@ -240,3 +240,7 @@ Hello
 World
 '''
   assert stderr.getvalue() == ''
+
+
+def test_usage(stdout):
+  ret = cat.usage(stdout, 0)

@@ -8,7 +8,7 @@ host$ . virtualenv/bin/activate
 
 (virtualenv) host$ pip install -r requirements.txt
 
-(virtualenv) host$ pytest -v
+(virtualenv) host$ pytest -v --cov .
 
 (virtualenv) host$ ./cat.py < ./cat.py
 (virtualenv) host$ ./cat.py ./cat.py ./cat.py ./cat.py
