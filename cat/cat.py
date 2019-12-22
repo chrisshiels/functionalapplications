@@ -118,12 +118,13 @@ def pipelineget(options, stdout):
 
 
 def usage(f, exitcode):
-  print >> f, '''\
+  print('''\
 Usage: cat [ options ] [ file ... ]
 
 .
 .
-'''
+''',
+        file = f)
   return exitcode
 
 
