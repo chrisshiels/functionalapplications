@@ -6,5 +6,6 @@ Functional applications in JavaScript and Python:
 * expr - Parser combinator-based implementation of expr.
 * ipcalc - Calculate subnet address ranges.
 * life - Conway's Game of Life.
+* meetingscheduler - Meeting scheduler.
 * renamebyexif - Pipeline-based jpg image renamer using exif DateTimeOriginal.
 * wordfrequencies - Pipeline-based count word frequencies.
